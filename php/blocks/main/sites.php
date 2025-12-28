@@ -16,13 +16,19 @@ function show_warnings( array $warnings ) : void {
 	echo '</div>';
 }
 
-function get_site_description( $name, array $site ) {
-	if ( !empty( $site['description'] ) ) {
-		return $site['description'];
+function get_site_description( $name, array $site ): string {
+	if ( ! empty( $site['description'] ) ) {
+		$description = $site['description'];
+		if ( is_array( $description ) ) {
+			$description = implode( ' ', $description );
+		}
+		return $description;
 	}
+
 	if ( 'wordpress-default' === $name ) {
 		return 'WordPress stable';
 	}
+
 	if ( 'wordpress-develop' === $name ) {
 		return 'A dev build of WordPress, with a trunk build in the <code>src</code> subfolder, and a grunt build in the <code>build</code> folder';
 	}
@@ -37,12 +43,14 @@ function get_site_warnings( array $site ) : array {
 		<p><strong>Warning:</strong> there are no hosts for this site! It might be unreachable in the browser, add a hosts section to this sites config file.</p>';
 		return $warnings;
 	}
+
 	$has_dev = array_reduce( $site['hosts'], function( $has_dev, $host ) {
 		return $has_dev || endsWith( $host, '.dev' );
-	});
+	} );
+
 	$has_local = array_reduce( $site['hosts'], function( $has_local, $host ) {
 		return $has_local || endsWith( $host, '.local' );
-	});
+	} );
 
 	if ( $has_dev ) {
 		$warnings[] = '
@@ -57,10 +65,11 @@ function get_site_warnings( array $site ) : array {
 	if ( $has_dev || $has_local ) {
 		$warnings[] = '<p><a class="button" href="https://varyingvagrantvagrants.org/docs/en-US/troubleshooting/dev-tld/">Click here for instructions for switching to .test</a></p>';
 	}
+
 	return $warnings;
 }
 
-function display_site( $name, array $site ) : void {
+function display_site( $name, array $site ): void {
 	$classes = [];
 	$description = get_site_description( $name, $site );
 	$site_title = $name;
