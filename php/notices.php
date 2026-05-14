@@ -26,9 +26,9 @@
 	<p><a class="button" href="https://varyingvagrantvagrants.org/docs/en-US/troubleshooting/">Troubleshooting</a> <a href="https://varyingvagrantvagrants.org/docs/en-US/adding-a-new-site/" class="button">Adding a Site</a></p>
 </div>
 <div id="vvv_hosts_fail" class="top-notice top-notice--alert box" style="display:none">
-	<p><strong>Info:</strong> It appears you've accessed the dashboard via the IP, you should visit <a href="http://vvv.test">http://vvv.test</a>, but if this isn't working, make sure you've installed the hosts updater vagrant plugin</p>
+	<p><strong>Info:</strong> It appears you've accessed the dashboard via the IP, you should visit <a href="http://vvvpm.test">http://vvvpm.test</a>, but if this isn't working, make sure you've installed the hosts updater vagrant plugin</p>
 	<p>If you're trying to access a site, you need to visit the host/domain given to the site if one was set.</p>
-	<p><a href="http://vvv.test" class="button">Visit the Dashboard</a></p>
+	<p><a href="http://vvvpm.test" class="button">Visit the Dashboard</a></p>
 </div>
 <div id="vvv_update" class="top-notice box" style="display:none">
 	<p>There is an newer version of VVV <strong class="vvv_newest_version">???</strong>! </p>
@@ -140,13 +140,13 @@ fetch('https://raw.githubusercontent.com/Varying-Vagrant-Vagrants/VVV/stable/ver
 	const matches = document.querySelectorAll('.vvv_newest_version');
 	matches.forEach( match => match.textContent = version.trim() );
 });
-// If it's not vvv.test then this site has failed to provision, let the user know
+// If it's not vvvpm.test then this site has failed to provision, let the user know
 // also notify if the dashboard is being shown on the raw IP
 if ( location.hostname.indexOf( "192.168") !== -1 ) {
 	var notice = document.getElementById( 'vvv_hosts_fail' );
 	notice.style.display = 'block';
 } else if ( ( location.hostname != "vvv.dev" )
-	&& ( location.hostname != "vvv.test" )
+	&& ( location.hostname != "vvvpm.test" )
 	&& ( location.hostname != "vvv.local" )
 	&& ( location.hostname != "vvv.localhost" ) )
 {
